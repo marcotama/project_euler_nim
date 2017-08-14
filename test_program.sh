@@ -16,8 +16,8 @@ if [[ ! -e $1 ]]; then
   printf "${RED}Compilation failed${NC}\n"
   cat compile.tmp
   exit
-#else
-  #nim c -d:release $1.nim &> /dev/null
+else
+  nim c -d:release $1.nim &> /dev/null
 fi
 
 if [[ -e compile.tmp ]]; then
@@ -46,6 +46,6 @@ fi
 if [[ -e out.tmp ]]; then
   rm out.tmp
 fi
-if [[ -e outtimetmp ]]; then
+if [[ -e time.tmp ]]; then
   rm time.tmp
 fi
