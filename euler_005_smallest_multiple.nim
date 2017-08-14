@@ -1,7 +1,22 @@
-proc computeSum(n: int): int =
-  for x in 3..<n:
-    if x mod 3 == 0 or x mod 5 == 0:
-      result += x
+proc gcd(a, b: int): int =
+  var
+    a = a
+    b = b
+  while b != 0:
+    let t = b
+    b = a mod b
+    a = t
+  result = a
+
+proc lcm(a, b: int): int =
+  result = a div gcd(a, b) * b
+
+proc computeSmallestMultiple(n: int): int =
+  result = 1
+
+  for k in 2..n:
+    result = lcm(result, k)
+
 
 
 when isMainModule:
@@ -10,4 +25,4 @@ when isMainModule:
 
   for i in 1..n_test_cases:
     let n = parseInt(readLine(stdin))
-    stdout.writeLine($(computeSum(n)))
+    stdout.writeLine($(computeSmallestMultiple(n)))
