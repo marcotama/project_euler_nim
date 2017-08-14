@@ -9,7 +9,7 @@ proc min(a, b: int): int =
 proc indexOfMax(a: ArrayFrom100To999, exc: int): int =
   var maxValue = a[a.low]
   result = a.low
-  for i in a.low+1..a.len:
+  for i in a.low+1..a.high:
     if i == exc:
       continue
     if a[i] > maxValue:
