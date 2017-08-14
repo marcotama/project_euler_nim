@@ -17,6 +17,7 @@ proc computeLargestPrimeFactor(n: int): int =
     if n mod d == 0:
       n = n div d
       result = d
+      limit = n
       continue
     d += 2
 
