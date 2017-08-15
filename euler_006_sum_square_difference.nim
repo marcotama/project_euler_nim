@@ -1,3 +1,5 @@
+from strutils import parseInt
+
 proc computeSumSquareDifference(n: int): int =
   var sumOfSquares, squareOfSum: int
   for i in 1..n:
@@ -8,7 +10,6 @@ proc computeSumSquareDifference(n: int): int =
 
 
 when isMainModule:
-  from strutils import parseInt
   let n_test_cases = parseInt(readLine(stdin))
 
   for i in 1..n_test_cases:

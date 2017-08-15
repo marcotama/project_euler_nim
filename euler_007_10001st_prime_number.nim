@@ -1,3 +1,5 @@
+from strutils import parseInt
+
 proc computeNthPrime(n: int): int =
   var
     primes = @[2]
@@ -17,7 +19,6 @@ proc computeNthPrime(n: int): int =
 
 
 when isMainModule:
-  from strutils import parseInt
   let n_test_cases = parseInt(readLine(stdin))
 
   for i in 1..n_test_cases:

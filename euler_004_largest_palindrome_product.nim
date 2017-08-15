@@ -1,3 +1,5 @@
+from strutils import parseInt
+
 type ArrayFrom100To999 = array[100..999, int]
 
 proc min(a, b: int): int =
@@ -57,7 +59,6 @@ proc computeLargestPalindromProduct(n: int): int =
 
 
 when isMainModule:
-  from strutils import parseInt
   let n_test_cases = parseInt(readLine(stdin))
 
   for i in 1..n_test_cases:

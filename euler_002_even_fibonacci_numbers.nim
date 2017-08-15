@@ -1,4 +1,6 @@
-proc computeEvenFibonacciSum(n: int): int =
+from strutils import parseInt
+
+proc computeEvenFibonacciNumbers(n: int): int =
   var
     x1 = 0
     x2 = 1
@@ -11,9 +13,8 @@ proc computeEvenFibonacciSum(n: int): int =
 
 
 when isMainModule:
-  from strutils import parseInt
   let n_test_cases = parseInt(readLine(stdin))
 
   for i in 1..n_test_cases:
     let n = parseInt(readLine(stdin))
-    stdout.writeLine($(computeEvenFibonacciSum(n)))
+    stdout.writeLine($(computeEvenFibonacciNumbers(n)))

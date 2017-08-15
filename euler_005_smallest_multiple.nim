@@ -1,3 +1,5 @@
+from strutils import parseInt
+
 proc gcd(a, b: int): int =
   var
     a = a
@@ -20,7 +22,6 @@ proc computeSmallestMultiple(n: int): int =
 
 
 when isMainModule:
-  from strutils import parseInt
   let n_test_cases = parseInt(readLine(stdin))
 
   for i in 1..n_test_cases:

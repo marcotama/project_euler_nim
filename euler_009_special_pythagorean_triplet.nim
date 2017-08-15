@@ -13,6 +13,7 @@ proc computeSpecialPythagoreanTriplet(n: int): int =
 
 when isMainModule:
   let n_test_cases = parseInt(readLine(stdin))
+
   for i in 1..n_test_cases:
     let n = parseInt(readLine(stdin))
     stdout.writeLine($(computeSpecialPythagoreanTriplet(n)))
