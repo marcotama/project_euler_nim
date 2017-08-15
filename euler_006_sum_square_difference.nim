@@ -1,5 +1,3 @@
-from math import sqrt
-
 proc computeSumSquareDifference(n: int): int =
   var sumOfSquares, squareOfSum: int
   for i in 1..n:
