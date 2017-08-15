@@ -1,8 +1,4 @@
-# From: https://stackoverflow.com/a/19023985
-# Exclusion rule (a negated pattern) should ignore all files,
-# except the ones with an extension.
 *
 !/**/
 !*.*
-
 nimcache
