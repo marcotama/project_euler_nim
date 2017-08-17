@@ -29,4 +29,5 @@ This command does not perform the second compilation.
 
 
 To test all of the solutions, run:
+
 ```sh test_all.sh```
