@@ -4,6 +4,13 @@ import algorithm
 import tables
 
 
+proc max*(a, b: int): int =
+  return if a > b: a else: b
+
+proc min*(a, b: int): int =
+  return if a < b: a else: b
+
+
 proc findNPrimes*(n: int): seq[int] =
   let doc = """
   Finds the first n prime numbers. Returns them sorted in a seq.
@@ -93,12 +100,13 @@ proc findFactorsDecomposition*(n: int): OrderedTable[int, int] =
   var
     n = n
     factors: OrderedTable[int, int]
-    limit = n
+    limit = int(sqrt(float(n)))
     d = 3
 
   factors = initOrderedTable[int, int](nextPowerOfTwo(int(sqrt(float(n)))))
   while n mod 2 == 0:
     n = n div 2
+    limit = int(sqrt(float(n)))
     if not factors.hasKey(2):
       factors[2] = 0
     factors[2] += 1
@@ -106,12 +114,15 @@ proc findFactorsDecomposition*(n: int): OrderedTable[int, int] =
   while d <= limit:
     if n mod d == 0:
       n = n div d
-      limit = n
+      limit = int(sqrt(float(n)))
       if not factors.hasKey(d):
         factors[d] = 0
       factors[d] += 1
       continue
     d += 2
+
+  if n != 1:
+    factors[n] = 1
 
   return factors
 
@@ -141,15 +152,18 @@ proc lcm*(a, b: int): int =
 
 
 when isMainModule:
-  assert findPrimesSorted(17) == @[2, 3, 5, 7, 11, 13, 17]
-  assert findPrimesSorted(20) == @[2, 3, 5, 7, 11, 13, 17, 19]
+  assert findNPrimes(1) == @[2]
+  assert findNPrimes(10) == @[2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+
+  assert findPrimesUpToSorted(17) == @[2, 3, 5, 7, 11, 13, 17]
+  assert findPrimesUpToSorted(20) == @[2, 3, 5, 7, 11, 13, 17, 19]
 
   assert findAllFactorsSorted(1) == @[1]
   assert findAllFactorsSorted(2) == @[1, 2]
   assert findAllFactorsSorted(10) == @[1, 2, 5, 10]
   assert findAllFactorsSorted(100) == @[1, 2, 4, 5, 10, 20, 25, 50, 100]
 
-  assert findFactorsDecomposition(1) == {1: 1}.toOrderedTable
+  assert findFactorsDecomposition(1) == initOrderedTable[int, int](2)
   assert findFactorsDecomposition(2) == {2: 1}.toOrderedTable
   assert findFactorsDecomposition(15) == {3: 1, 5: 1}.toOrderedTable
   assert findFactorsDecomposition(17) == {17: 1}.toOrderedTable
