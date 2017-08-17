@@ -122,7 +122,9 @@ proc findFactorsDecomposition*(n: int): OrderedTable[int, int] =
     d += 2
 
   if n != 1:
-    factors[n] = 1
+    if not factors.hasKey(n):
+      factors[n] = 0
+    factors[n] += 1
 
   return factors
 
@@ -163,8 +165,9 @@ when isMainModule:
   assert findAllFactorsSorted(10) == @[1, 2, 5, 10]
   assert findAllFactorsSorted(100) == @[1, 2, 4, 5, 10, 20, 25, 50, 100]
 
-  assert findFactorsDecomposition(1) == {:}.toOrderedTable
+  assert findFactorsDecomposition(1) == initOrderedTable[int, int](2)
   assert findFactorsDecomposition(2) == {2: 1}.toOrderedTable
+  assert findFactorsDecomposition(9) == {3: 2}.toOrderedTable
   assert findFactorsDecomposition(15) == {3: 1, 5: 1}.toOrderedTable
   assert findFactorsDecomposition(17) == {17: 1}.toOrderedTable
   assert findFactorsDecomposition(36) == {2: 2, 3: 2}.toOrderedTable
