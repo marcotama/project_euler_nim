@@ -163,7 +163,7 @@ when isMainModule:
   assert findAllFactorsSorted(10) == @[1, 2, 5, 10]
   assert findAllFactorsSorted(100) == @[1, 2, 4, 5, 10, 20, 25, 50, 100]
 
-  assert findFactorsDecomposition(1) == initOrderedTable[int, int](2)
+  assert findFactorsDecomposition(1) == {:}.toOrderedTable
   assert findFactorsDecomposition(2) == {2: 1}.toOrderedTable
   assert findFactorsDecomposition(15) == {3: 1, 5: 1}.toOrderedTable
   assert findFactorsDecomposition(17) == {17: 1}.toOrderedTable
