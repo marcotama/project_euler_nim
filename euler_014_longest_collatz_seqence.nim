@@ -1,21 +1,27 @@
 from strutils import parseInt
 
-proc collatzSequenceLength(n: int): int =
-  var n = n
-  while n != 1:
-    if n mod 2 == 0:
-      n = n div 2
+proc collatzSequenceLength(n: int, memory: seq[int]): int =
+  var m = n
+  while m != 1:
+    if m mod 2 == 0:
+      m = m div 2
     else:
-      n = 3 * n + 1
+      m = 3 * m + 1
     result += 1
+    if m < n:
+      result += memory[int(m)] - 1
+      return
 
 
 proc computeLongestCollatzSequence(n: int): int =
   var
+    memory: seq[int] = newSeq[int](n+1)
     maxN = 1
     maxNIndex = 1
   for i in 1..n:
-    let seqLen = collatzSequenceLength(i)
+    let seqLen = collatzSequenceLength(i, memory)
+    memory[i] = seqLen
+    memory[i] = seqLen
     if seqLen >= maxN:
       maxN = seqLen
       maxNIndex = i
