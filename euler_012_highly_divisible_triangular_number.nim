@@ -1,14 +1,18 @@
 from strutils import parseInt
-from util import findAllFactorsUnsorted
+from util import findFactorsDecomposition
+import tables
 
 proc computeHighlyDivisibleTriangularNumber(n: int): int =
   var
-    factors: seq[int] = @[]
+    nFactors = 0
     triangularNumber = 0
     i = 1
-  while factors.len <= n:
+  while nFactors <= n:
     triangularNumber += i
-    factors = findAllFactorsUnsorted(triangularNumber)
+    let factorsDecomposition = findFactorsDecomposition(triangularNumber)
+    nFactors = 1
+    for b, e in factorsDecomposition.pairs:
+      nFactors *= e + 1
     i += 1
   return triangularNumber
 
