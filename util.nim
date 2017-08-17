@@ -93,7 +93,7 @@ proc findFactorsDecomposition*(n: int): OrderedTable[int, int] =
   var
     n = n
     factors: OrderedTable[int, int]
-    limit = n div 2
+    limit = n
     d = 3
 
   factors = initOrderedTable[int, int](nextPowerOfTwo(int(sqrt(float(n)))))
@@ -112,9 +112,6 @@ proc findFactorsDecomposition*(n: int): OrderedTable[int, int] =
       factors[d] += 1
       continue
     d += 2
-
-  if factors.len == 0:
-    factors[n] = 1
 
   return factors
 
@@ -149,8 +146,8 @@ when isMainModule:
 
   assert findAllFactorsSorted(1) == @[1]
   assert findAllFactorsSorted(2) == @[1, 2]
-  assert findAllFactorsSorted(10) == @[1, 2, 5]
-  assert findAllFactorsSorted(100) == @[1, 2, 4, 5, 10, 20, 25, 50]
+  assert findAllFactorsSorted(10) == @[1, 2, 5, 10]
+  assert findAllFactorsSorted(100) == @[1, 2, 4, 5, 10, 20, 25, 50, 100]
 
   assert findFactorsDecomposition(1) == {1: 1}.toOrderedTable
   assert findFactorsDecomposition(2) == {2: 1}.toOrderedTable
