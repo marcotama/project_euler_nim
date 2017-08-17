@@ -38,6 +38,5 @@ when isMainModule:
   for i in 1..dim:
     let ss = split(readLine(stdin), " ")
     for j in 1..dim:
-      flushFile(stdout)
       data[i][j] = parseInt(ss[j - 1])
   stdout.writeLine($(computeLargestProductInAGrid(data)))
