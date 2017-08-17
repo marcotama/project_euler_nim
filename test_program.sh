@@ -17,7 +17,9 @@ if [[ ! -e $1 ]]; then
   cat compile.tmp
   exit
 else
-  nim c -d:release $1.nim &> /dev/null
+  if [[ "$2" != "DEBUG" ]]; then
+    nim c -d:release $1.nim &> /dev/null
+  fi
 fi
 
 if [[ -e compile.tmp ]]; then
