@@ -62,7 +62,7 @@ proc findAllFactorsUnsorted*(n: int): seq =
   var factorsHashSet: HashSet[int]
   factorsHashSet.init(nextPowerOfTwo(int(sqrt(float(n)))))
   factorsHashSet.incl(1)
-  for i in 2..int(sqrt(float(n))) + 1:
+  for i in 1..int(sqrt(float(n))) + 1:
     if n mod i == 0:
       factorsHashSet.incl(i)
       factorsHashSet.incl(int(n div i))
