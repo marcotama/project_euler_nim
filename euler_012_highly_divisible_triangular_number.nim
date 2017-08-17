@@ -1,18 +1,21 @@
 from strutils import parseInt
-from util import findFactorsDecomposition
-import tables
+from math import sqrt
+
+proc countFactors(n: int): int =
+  if n == 1:
+    return 1
+  for i in 1..int(sqrt(float(n))):
+    if n mod i == 0:
+      result += 2
+
 
 proc computeHighlyDivisibleTriangularNumber(n: int): int =
   var
     nFactors = 0
-    triangularNumber = 0
-    i = 1
-  while nFactors <= n:
+    triangularNumber = 1
+    i = 2
+  while countFactors(triangularNumber) <= n:
     triangularNumber += i
-    let factorsDecomposition = findFactorsDecomposition(triangularNumber)
-    nFactors = 1
-    for b, e in factorsDecomposition.pairs:
-      nFactors *= e + 1
     i += 1
   return triangularNumber
 
