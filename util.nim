@@ -3,12 +3,18 @@ import sets
 import algorithm
 import tables
 
+proc max*[T](s: seq[T]): T =
+  result = s[0]
+  for i in 1..<s.len:
+    if result < s[i]:
+      result = s[i]
 
-proc max*(a, b: int): int =
-  return if a > b: a else: b
+proc max*[T](s: varargs[T]): T =
+  result = s[0]
+  for i in 1..<s.len:
+    if result < s[i]:
+      result = s[i]
 
-proc min*(a, b: int): int =
-  return if a < b: a else: b
 
 
 proc findNPrimes*(n: int): seq[int] =
@@ -154,6 +160,15 @@ proc lcm*(a, b: int): int =
 
 
 when isMainModule:
+  assert max(0, 0) == 0
+  assert max(0, 1) == 1
+  assert max(0, 2, 1, 0) == 2
+  assert max(1, 1, 0) == 1
+  assert max(@[0, 0]) == 0
+  assert max(@[0, 1]) == 1
+  assert max(@[0, 2, 1, 0]) == 2
+  assert max(@[1, 1, 0]) == 1
+
   assert findNPrimes(1) == @[2]
   assert findNPrimes(10) == @[2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
 
