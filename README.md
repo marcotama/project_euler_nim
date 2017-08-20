@@ -31,3 +31,11 @@ This command does not perform the second compilation.
 To test all of the solutions, run:
 
 ```sh test_all.sh```
+
+
+
+Note: I am using both projecteuler.net and hackerrank.com.
+The two websites have slightly different versions of the problems;
+I normally stick to the projecteuler.net version but my programs usually
+take input, as in hackerrank.com, (as opposed to projecteuler.net,
+which uses "constant" problems). There are exceptions to this.
