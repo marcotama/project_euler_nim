@@ -10,8 +10,8 @@ proc computeSumSquareDifference(n: int): int =
 
 
 when isMainModule:
-  let nTestCases = parseInt(readLine(stdin))
+  let nTestCases = parseInt(stdin.readLine())
 
   for i in 1..nTestCases:
-    let n = parseInt(readLine(stdin))
+    let n = parseInt(stdin.readLine())
     stdout.writeLine($(computeSumSquareDifference(n)))

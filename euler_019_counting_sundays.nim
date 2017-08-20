@@ -72,12 +72,12 @@ proc computeCountingSundays(year1, month1, day1, year2, month2, day2: int): int 
 
 
 when isMainModule:
-  let nTestCases = parseInt(readLine(stdin))
+  let nTestCases = parseInt(stdin.readLine())
 
   for i in 1..nTestCases:
     let
-      data1 = split(readLine(stdin))
-      data2 = split(readLine(stdin))
+      data1 = split(stdin.readLine())
+      data2 = split(stdin.readLine())
       y1 = parseInt(data1[0])
       m1 = parseInt(data1[1])
       d1 = parseInt(data1[2])

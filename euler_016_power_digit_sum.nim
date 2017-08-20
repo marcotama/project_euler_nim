@@ -45,8 +45,8 @@ proc computePowerDigitSum(n: int): int =
     result += ord(c) - ord('0')
 
 when isMainModule:
-  let nTestCases = parseInt(readLine(stdin))
+  let nTestCases = parseInt(stdin.readLine())
 
   for i in 1..nTestCases:
-    let n = parseInt(readLine(stdin))
+    let n = parseInt(stdin.readLine())
     stdout.writeLine($(computePowerDigitSum(n)))

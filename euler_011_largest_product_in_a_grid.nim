@@ -36,7 +36,7 @@ when isMainModule:
   var data: SquareMatrix
 
   for i in 1..dim:
-    let ss = split(readLine(stdin), " ")
+    let ss = split(stdin.readLine(), " ")
     for j in 1..dim:
       data[i][j] = parseInt(ss[j - 1])
   stdout.writeLine($(computeLargestProductInAGrid(data)))

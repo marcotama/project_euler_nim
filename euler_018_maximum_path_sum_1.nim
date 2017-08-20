@@ -21,12 +21,12 @@ proc computeNumberLetterCount(triangle: seq[seq[int]]): int =
   return max(cumulativeTriangle[cumulativeTriangle.len-1])
 
 when isMainModule:
-  let nTestCases = parseInt(readLine(stdin))
+  let nTestCases = parseInt(stdin.readLine())
 
   for i in 1..nTestCases:
-    let nRows = parseInt(readLine(stdin))
+    let nRows = parseInt(stdin.readLine())
     var data: seq[seq[int]] = @[]
     for j in 1..nRows:
-      let line = split(readLine(stdin))
+      let line = split(stdin.readLine())
       data.add(lc[parseInt(n) | (n <- line), int])
     stdout.writeLine($(computeNumberLetterCount(data)))

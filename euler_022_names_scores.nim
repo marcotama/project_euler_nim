@@ -13,6 +13,6 @@ proc computeNamesScores(names: seq[string]): int =
 
 
 when isMainModule:
-  let nLines = parseInt(readLine(stdin))
+  let nLines = parseInt(stdin.readLine())
   let data = lc[ stdin.readLine() | (x <- 1..nLines), string]
   stdout.writeLine($(computeNamesScores(data)))

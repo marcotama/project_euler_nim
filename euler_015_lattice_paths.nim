@@ -40,11 +40,11 @@ proc computeLatticePaths(n, r: int): int =
 
 
 when isMainModule:
-  let nTestCases = parseInt(readLine(stdin))
+  let nTestCases = parseInt(stdin.readLine())
 
   for i in 1..nTestCases:
     let
-      tmp = split(readLine(stdin), " ")
+      tmp = split(stdin.readLine(), " ")
       n = parseInt(tmp[0])
       r = parseInt(tmp[1])
     stdout.writeLine($(computeLatticePaths(n + r, r)))

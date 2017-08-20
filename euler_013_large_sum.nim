@@ -46,8 +46,8 @@ proc computeLargeSum(data: seq[string]): string =
 when isMainModule:
 
   var data: seq[string] = @[]
-  let nLines = parseInt(readLine(stdin))
+  let nLines = parseInt(stdin.readLine())
 
   for i in 1..nLines:
-    data.add(readLine(stdin))
+    data.add(stdin.readLine())
   stdout.writeLine($(computeLargeSum(data)))
