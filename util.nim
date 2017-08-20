@@ -2,6 +2,27 @@ from math import sqrt, nextPowerOfTwo
 import sets
 import algorithm
 import tables
+import bigints
+
+
+proc pow*(b, e: int): int =
+  result = 1
+  if e >= 0:
+    for i in 1..e:
+      result *= b
+  else:
+    raise newException(ValueError, "The exponent must be positive")
+
+
+proc bigPow*(b, e: int): BigInt =
+  let b = initBigInt(b)
+  result = initBigInt(1)
+  if e >= 0:
+    for i in 1..e:
+      result *= b
+  else:
+    raise newException(ValueError, "The exponent must be positive")
+
 
 proc max*[T](s: seq[T]): T =
   result = s[0]
@@ -9,12 +30,12 @@ proc max*[T](s: seq[T]): T =
     if result < s[i]:
       result = s[i]
 
+
 proc max*[T](s: varargs[T]): T =
   result = s[0]
   for i in 1..<s.len:
     if result < s[i]:
       result = s[i]
-
 
 
 proc findNPrimes*(n: int): seq[int] =
@@ -160,6 +181,12 @@ proc lcm*(a, b: int): int =
 
 
 when isMainModule:
+  assert pow(1, 0) == 1
+  assert pow(2, 0) == 1
+  assert pow(1, 10) == 1
+  assert pow(10, 1) == 10
+  assert pow(8, 3) == 512
+
   assert max(0, 0) == 0
   assert max(0, 1) == 1
   assert max(0, 2, 1, 0) == 2
