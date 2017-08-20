@@ -59,8 +59,8 @@ proc computeLargestPalindromProduct(n: int): int =
 
 
 when isMainModule:
-  let n_test_cases = parseInt(readLine(stdin))
+  let nTestCases = parseInt(readLine(stdin))
 
-  for i in 1..n_test_cases:
+  for i in 1..nTestCases:
     let n = parseInt(readLine(stdin))
     stdout.writeLine($(computeLargestPalindromProduct(n)))

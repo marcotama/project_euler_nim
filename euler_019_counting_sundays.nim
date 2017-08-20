@@ -42,7 +42,7 @@ proc dayOfTheWeek(year, month, day: int): int =
   result = result mod 7
 
 
-proc calcCountingSundays(year1, month1, day1, year2, month2, day2: int): int =
+proc computeCountingSundays(year1, month1, day1, year2, month2, day2: int): int =
   var dayOfWeek = dayOfTheWeek(year1, month1, day1)
 
   if day1 == 1:
@@ -84,4 +84,4 @@ when isMainModule:
       y2 = parseInt(data2[0])
       m2 = parseInt(data2[1])
       d2 = parseInt(data2[2])
-    stdout.writeLine($(calcCountingSundays(y1, m1, d1, y2, m2, d2)))
+    stdout.writeLine($(computeCountingSundays(y1, m1, d1, y2, m2, d2)))

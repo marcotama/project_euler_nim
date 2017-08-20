@@ -66,14 +66,14 @@ proc toEngStr(n: int): string =
   return result
 
 
-proc calcNumberLetterCount(n: int): int =
+proc computeNumberLetterCount(n: int): int =
   for i in 1..n:
     result += toEngStr(i).len
 
 
 when isMainModule:
-  let n_test_cases = parseInt(readLine(stdin))
+  let nTestCases = parseInt(readLine(stdin))
 
-  for i in 1..n_test_cases:
+  for i in 1..nTestCases:
     let n = parseInt(readLine(stdin))
-    stdout.writeLine($(calcNumberLetterCount(n)))
+    stdout.writeLine($(computeNumberLetterCount(n)))

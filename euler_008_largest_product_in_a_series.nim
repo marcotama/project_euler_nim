@@ -11,9 +11,9 @@ proc computeLargestProductInASeries(s: string, k: int): int =
 
 
 when isMainModule:
-  let n_test_cases = parseInt(readLine(stdin))
+  let nTestCases = parseInt(readLine(stdin))
 
-  for i in 1..n_test_cases:
+  for i in 1..nTestCases:
     let k = parseInt(split(readLine(stdin), " ")[1])
     let s = readLine(stdin)
     stdout.writeLine($(computeLargestProductInASeries(s, k)))

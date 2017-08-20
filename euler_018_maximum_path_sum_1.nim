@@ -4,7 +4,7 @@ import future
 from util import max
 
 
-proc calcNumberLetterCount(triangle: seq[seq[int]]): int =
+proc computeNumberLetterCount(triangle: seq[seq[int]]): int =
   var cumulativeTriangle: seq[seq[int]] = @[]
   cumulativeTriangle.add(@[triangle[0][0]])
 
@@ -29,4 +29,4 @@ when isMainModule:
     for j in 1..nRows:
       let line = split(readLine(stdin))
       data.add(lc[parseInt(n) | (n <- line), int])
-    stdout.writeLine($(calcNumberLetterCount(data)))
+    stdout.writeLine($(computeNumberLetterCount(data)))
