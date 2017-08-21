@@ -3,6 +3,23 @@ import sets
 import algorithm
 import tables
 import bigints
+import future
+
+proc isPrime*(n: int): bool =
+  if n <= 1:
+    return false
+  elif n <= 3:
+    return true
+  elif n mod 2 == 0 or n mod 3 == 0:
+    return false
+
+  let limit = int(sqrt(float(n)))
+  var i = 5
+  while i <= limit:
+    if n mod i == 0 or n mod (i + 2) == 0:
+      return false
+    i += 6
+  return true
 
 
 proc pow*(b, e: int): int =
@@ -61,7 +78,7 @@ proc findNPrimes*(n: int): seq[int] =
   return primes
 
 
-proc findPrimesUpToUnsorted*(limit: int): seq[int] =
+proc findPrimesUpToHashSet*(limit: int): HashSet[int] =
   let doc = """
   Finds all prime numbers <= limit. Returns them unsorted in a seq.
   """
@@ -72,11 +89,15 @@ proc findPrimesUpToUnsorted*(limit: int): seq[int] =
   for i in 2..int(sqrt(float(limit))):
     for j in countup(2*i, limit, i):
       primesHashSet.excl(j)
+  return primesHashSet
 
-  var primes = newSeq[int]()
-  for p in primesHashSet:
-    primes.add(p)
-  return primes
+
+proc findPrimesUpToUnsorted*(limit: int): seq[int] =
+  let doc = """
+  Finds all prime numbers <= limit. Returns them unsorted in a seq.
+  """
+  let primesHashSet = findPrimesUpToHashSet(limit)
+  return lc[n | (n <- primesHashSet), int]
 
 
 
