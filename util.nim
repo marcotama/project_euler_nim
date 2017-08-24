@@ -5,6 +5,27 @@ import tables
 import bigints
 import future
 
+let digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+proc fromBaseToInt*(s: string, b: int): int =
+  var bp = 1
+  for i in countdown(s.len-1, 0):
+    result += bp * find(digits, s[i])
+    bp *= b
+
+proc fromIntToBase*(n: int, b: int): string =
+  result = ""
+  var n = n
+  while n > 0:
+    result = digits[n mod b] & result
+    n = n div b
+
+
+proc isPalindrome*(s: string): bool =
+  for i in 0..s.len div 2:
+    if s[i] != s[s.len-i-1]:
+      return false
+  return true
+
 proc count*[T](ss: seq[T]): CountTable[T] =
   result = initCountTable[T]()
   for el in ss:
@@ -108,26 +129,6 @@ proc allCombinations*(pool: string, r: int): seq[string] =
 
 
 
-proc isPrime*(n: int): bool =
-  let doc = """
-  Tests primality of n.
-  """
-  if n <= 1:
-    return false
-  elif n <= 3:
-    return true
-  elif n mod 2 == 0 or n mod 3 == 0:
-    return false
-
-  let limit = int(sqrt(float(n)))
-  var i = 5
-  while i <= limit:
-    if n mod i == 0 or n mod (i + 2) == 0:
-      return false
-    i += 6
-  return true
-
-
 proc pow*(b, e: int): int =
   let doc = """
   Computes b^e for integers (e >= 0).
@@ -173,155 +174,6 @@ proc max*[T](s: varargs[T]): T =
       result = s[i]
 
 
-proc findNPrimes*(n: int): seq[int] =
-  let doc = """
-  Finds the first n prime numbers. Returns them sorted in a seq.
-  """
-  if n == 0:
-    return @[]
-
-  var
-    primes = @[2]
-    k = 1
-
-  while primes.len < n:
-    k += 2
-    var prime = true
-    for d in primes:
-      if k mod d == 0:
-        prime = false
-        break
-    if prime:
-      primes.add(k)
-  return primes
-
-
-proc findPrimesUpToHashSet*(limit: int): HashSet[int] =
-  let doc = """
-  Finds all prime numbers <= limit. Returns them unsorted in a seq.
-  """
-  var primesHashSet: HashSet[int]
-  primesHashSet.init(nextPowerOfTwo(limit))
-  for n in 2..limit:
-    primesHashSet.incl(n)
-  for i in 2..int(sqrt(float(limit))):
-    for j in countup(2*i, limit, i):
-      primesHashSet.excl(j)
-  return primesHashSet
-
-
-proc findPrimesUpToUnsorted*(limit: int): seq[int] =
-  let doc = """
-  Finds all prime numbers <= limit. Returns them unsorted in a seq.
-  """
-  let primesHashSet = findPrimesUpToHashSet(limit)
-  return lc[n | (n <- primesHashSet), int]
-
-
-
-proc findPrimesUpToSorted*(limit: int): seq[int] =
-  let doc = """
-  Finds all prime numbers <= limit. Returns them sorted in a seq.
-  """
-  let primes = findPrimesUpToUnsorted(limit)
-  return sorted(primes, system.cmp)
-
-
-
-proc findAllFactorsUnsorted*(n: int): seq =
-  let doc = """
-  Finds all factors of n. Returns them unsorted in a seq.
-  """
-  var factorsHashSet: HashSet[int]
-  factorsHashSet.init(nextPowerOfTwo(int(sqrt(float(n)))))
-  factorsHashSet.incl(1)
-  for i in 1..int(sqrt(float(n))) + 1:
-    if n mod i == 0:
-      factorsHashSet.incl(i)
-      factorsHashSet.incl(int(n div i))
-
-  var factors = newSeq[int]()
-  for p in factorsHashSet:
-    if p == 0:
-      continue
-    factors.add(p)
-  return factors
-
-
-
-proc findAllFactorsSorted*(limit: int): seq[int] =
-  let doc = """
-  Finds all factors of n. Returns them sorted in a seq.
-  """
-  let primes = findAllFactorsUnsorted(limit)
-  return sorted(primes, system.cmp)
-
-
-
-proc findFactorsDecomposition*(n: int): CountTable[int] =
-  let doc = """
-  Decomposes n in prime factors and tracks the powers of each factor.
-  Returns a HashMap mapping each factor to its power in the product.
-  """
-  var
-    n = n
-    factors: CountTable[int]
-    limit = int(sqrt(float(n)))
-    d = 3
-
-  factors = initCountTable[int]()
-  while n mod 2 == 0:
-    n = n div 2
-    limit = int(sqrt(float(n)))
-    if factors.hasKey(2):
-      factors[2] += 1
-    else:
-      factors[2] = 1
-
-  while d <= limit:
-    if n mod d == 0:
-      n = n div d
-      limit = int(sqrt(float(n)))
-      if factors.hasKey(d):
-        factors[d] += 1
-      else:
-        factors[d] = 1
-      continue
-    d += 2
-
-  if n != 1:
-    if factors.hasKey(n):
-      factors[n] += 1
-    else:
-      factors[n] = 1
-
-  return factors
-
-
-
-proc gcd*(a, b: int): int =
-  let doc = """
-  Finds the greatest common divisor between a and b.
-  """
-  var
-    a = a
-    b = b
-  while b != 0:
-    let t = b
-    b = a mod b
-    a = t
-  result = a
-
-
-
-proc lcm*(a, b: int): int =
-  let doc = """
-  Finds the least common multiple between a and b.
-  """
-  result = a div gcd(a, b) * b
-
-
-
 when isMainModule:
   let
     comp = lc[s | (s <- combinations(@['A','B','C','D'], 2)), seq[char]]
@@ -344,20 +196,17 @@ when isMainModule:
   assert max(@[0, 2, 1, 0]) == 2
   assert max(@[1, 1, 0]) == 1
 
-  assert findNPrimes(1) == @[2]
-  assert findNPrimes(10) == @[2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+  assert (not isPalindrome("ciao"))
+  assert isPalindrome("12321")
+  assert isPalindrome("1221")
 
-  assert findPrimesUpToSorted(17) == @[2, 3, 5, 7, 11, 13, 17]
-  assert findPrimesUpToSorted(20) == @[2, 3, 5, 7, 11, 13, 17, 19]
+  assert fromBaseToInt("1", 16) == 1
+  assert fromBaseToInt("10", 16) == 16
+  assert fromBaseToInt("A", 16) == 10
+  assert fromBaseToInt("11", 10) == 11
+  assert fromBaseToInt("11", 2) == 3
+  assert fromBaseToInt("101", 2) == 5
 
-  assert findAllFactorsSorted(1) == @[1]
-  assert findAllFactorsSorted(2) == @[1, 2]
-  assert findAllFactorsSorted(10) == @[1, 2, 5, 10]
-  assert findAllFactorsSorted(100) == @[1, 2, 4, 5, 10, 20, 25, 50, 100]
-
-  assert findFactorsDecomposition(1) == newSeq[int]().count
-  assert findFactorsDecomposition(2) == @[2].count
-  assert findFactorsDecomposition(9) == @[3, 3].count
-  assert findFactorsDecomposition(15) == @[3, 5].count
-  assert findFactorsDecomposition(17) == @[17].count
-  assert findFactorsDecomposition(36) == @[2, 2, 3, 3].count
+  assert fromIntToBase(11, 2) == "1011"
+  assert fromIntToBase(65, 16) == "41"
+  assert fromIntToBase(65, 10) == "65"
